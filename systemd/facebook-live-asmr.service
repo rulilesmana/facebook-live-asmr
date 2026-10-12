@@ -1,0 +1,26 @@
+[Unit]
+Description=Facebook Live ASMR FFmpeg Stream
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=fbstream
+Group=fbstream
+EnvironmentFile=/etc/facebook-live-asmr.env
+Environment=VIDEO_PATH=/opt/facebook-live-asmr/video/asmr.mp4
+WorkingDirectory=/opt/facebook-live-asmr
+ExecStart=/opt/facebook-live-asmr/stream.sh
+Restart=on-failure
+RestartSec=15
+TimeoutStopSec=20
+KillSignal=SIGINT
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/facebook-live-asmr
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
